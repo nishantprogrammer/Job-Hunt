@@ -8,7 +8,7 @@ import { Badge } from './ui/badge'
 import Appliedjobstable from './Appliedjobstable'
 
 import { Label } from './ui/label'
-import UpdateprofileDialogue from './updateprofileDialogue'
+import UpdateprofileDialogue from './UpdateprofileDialogue'
 import { useSelector } from 'react-redux'
 import useGetAppliedJobs from '@/hooks/useGetAppliedJobs'
 // import store from '@/redux/store'
