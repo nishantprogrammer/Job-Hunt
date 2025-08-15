@@ -1,0 +1,5 @@
+export const URL_ENDPOINT = "http://localhost:8000/api/v1/user"
+export const JOB_ENDPOINT = "http://localhost:8000/api/v1/job"
+export const APPLICATION_ENDPOINT = "http://localhost:8000/api/v1/applications"
+export const COMPANY_ENDPOINT = "http://localhost:8000/api/v1/company"
+export const SAVED_JOB_ENDPOINT = "http://localhost:8000/api/v1/savedjobs"
