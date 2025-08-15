@@ -49,7 +49,7 @@ export const login = async (req, res) => {
         const { email, password, role } = req.body
 
         if (!email || !password || !role) {
-            res.status(400).json({ message: "No Field Should Be Empty" })
+            return res.status(400).json({ message: "No Field Should Be Empty" })
         }
         const user = await User.findOne({ email })
         if (!user) {
