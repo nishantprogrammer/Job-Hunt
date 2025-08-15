@@ -15,16 +15,27 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:5173',
-  'http://localhost:5173' // Always allow local dev
+  'http://localhost:5173', // Always allow local dev
+  process.env.PRODUCTION_FRONTEND_URL // Add your Vercel deployment URL here
 ];
 
 const corsOption = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Check if the origin is in our allowed list
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
     }
+    
+    // For development, you might want to be more permissive (remove this in production)
+    if (process.env.NODE_ENV === 'development') {
+      return callback(null, true);
+    }
+    
+    // Block the request if the origin is not allowed
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true
 };
