@@ -16,7 +16,8 @@ app.use(cookieParser());
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:5173',
   'http://localhost:5173', // Always allow local dev
-  process.env.PRODUCTION_FRONTEND_URL // Add your Vercel deployment URL here
+  process.env.PRODUCTION_FRONTEND_URL, // Vercel deployment URL
+  'https://job-hunt-1-i6cm.onrender.com' // Additional production frontend
 ];
 
 const corsOption = {
@@ -29,10 +30,7 @@ const corsOption = {
       return callback(null, true);
     }
     
-    // For development, you might want to be more permissive (remove this in production)
-    if (process.env.NODE_ENV === 'development') {
-      return callback(null, true);
-    }
+    // Production-ready: Only allow specified origins
     
     // Block the request if the origin is not allowed
     callback(new Error('Not allowed by CORS'));
