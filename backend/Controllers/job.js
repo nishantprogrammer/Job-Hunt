@@ -75,9 +75,9 @@ export const getjobs = async (req, res) => {
                 { description: { $regex: keyword, $options: "i" } }
             ]
         };
-        const jobs = await Job.find(query).populate({ path: "company" }).sort({ userId: -1 });
-        if (!jobs|| jobs.length===0) {
-            return res.status(400).json({ message: "No jobs Found With your Matching Keyword", success: false })
+        const jobs = await Job.find(query).populate({ path: "company" }).sort({ createdAt: -1 });
+        if (!jobs || jobs.length === 0) {
+            return res.status(200).json({ message: "No jobs Found With your Matching Keyword", jobs: [], success: true })
         }
         return res.status(200).json({ message: "Here Are Some Matching Results", jobs, success: true })
 
@@ -114,11 +114,8 @@ export const adminjob = async (req, res) => {
             createdBy:-1
         }
     )
-    if (!job) {
-        return res.status(404).json({ message: "No jobs FOund", success: false })
+    if (!job || job.length === 0) {
+        return res.status(200).json({ message: "No jobs Found", jobs: [], success: true })
     }
     return res.json({ message: "The job You Searched For is ", job, success: true })
 }
-
-
-

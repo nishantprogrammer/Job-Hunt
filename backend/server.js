@@ -17,8 +17,8 @@ const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:5173',
   'http://localhost:5173', // Always allow local dev
   process.env.PRODUCTION_FRONTEND_URL, // Vercel deployment URL
-  'https://job-hunt-1-i6cm.onrender.com' // Additional production frontend
-];
+  process.env.ADDITIONAL_FRONTEND_URL // Additional production frontend
+].filter(Boolean); // Remove any undefined values
 
 const corsOption = {
   origin: function (origin, callback) {
