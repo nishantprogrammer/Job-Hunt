@@ -68,7 +68,6 @@ export const postjob = async (req, res) => {
 export const getjobs = async (req, res) => {
     try {
         const keyword = req.query.keyword || "";
-        console.log("Searching for jobs with keyword:", keyword);
 
         // If no keyword, get all jobs
         const query = keyword
@@ -80,18 +79,14 @@ export const getjobs = async (req, res) => {
             }
             : {}; // Get all jobs if no keyword
 
-        console.log("Query:", query);
         const jobs = await Job.find(query).populate({ path: "company" }).sort({ createdAt: -1 });
-        console.log("Found jobs:", jobs.length);
 
         if (!jobs || jobs.length === 0) {
             return res.status(200).json({ message: "No jobs Found With your Matching Keyword", jobs: [], success: true })
         }
         return res.status(200).json({ message: "Here Are Some Matching Results", jobs, success: true })
 
-
     } catch (error) {
-        console.log("Error in getjobs:", error)
         return res.status(500).json({ message: "Server error", success: false })
     }
 }
